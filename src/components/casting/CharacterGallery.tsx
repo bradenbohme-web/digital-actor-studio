@@ -1,8 +1,10 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { supabase } from '@/integrations/supabase/client';
+import { toast } from 'sonner';
 import { 
   Play, 
   Edit, 
@@ -13,7 +15,8 @@ import {
   Calendar,
   Heart,
   Zap,
-  MoreVertical
+  MoreVertical,
+  Loader2
 } from 'lucide-react';
 
 // Mock character data
@@ -160,6 +163,64 @@ const CharacterDetail = ({ character }: { character: any }) => (
 
 export const CharacterGallery = () => {
   const [selectedCharacter, setSelectedCharacter] = useState(null);
+  const [characters, setCharacters] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    loadCharacters();
+  }, []);
+
+  const loadCharacters = async () => {
+    try {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) {
+        setCharacters(mockCharacters); // Fallback to mock data for demo
+        setLoading(false);
+        return;
+      }
+
+      const { data, error } = await supabase.functions.invoke('get-characters', {
+        body: { userId: user.id }
+      });
+
+      if (error) {
+        console.error('Error loading characters:', error);
+        toast.error('Failed to load characters');
+        setCharacters(mockCharacters); // Fallback to mock data
+      } else {
+        // Combine real characters with mock characters for demo
+        const realCharacters = data.characters.map(char => ({
+          id: char.id,
+          name: char.name,
+          role: char.role || 'Custom Character',
+          image: char.imageUrl || 'https://images.unsplash.com/photo-1494790108755-2616b612b47c?w=300&h=400&fit=crop&crop=face',
+          personality: char.personality_traits || [],
+          voiceType: char.voice_type || 'Not set',
+          projects: 0,
+          lastUsed: 'Recently',
+          qualityScore: 9.5,
+          status: 'Generated'
+        }));
+        setCharacters([...realCharacters, ...mockCharacters]);
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      setCharacters(mockCharacters); // Fallback to mock data
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center h-64">
+        <div className="text-center space-y-4">
+          <Loader2 className="w-8 h-8 animate-spin mx-auto text-primary" />
+          <p className="text-muted-foreground">Loading your characters...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-6">
@@ -170,9 +231,9 @@ export const CharacterGallery = () => {
         </div>
         
         <div className="flex items-center space-x-2">
-          <Button variant="outline" size="sm">
+          <Button variant="outline" size="sm" onClick={loadCharacters}>
             <Users className="w-4 h-4 mr-2" />
-            View All
+            Refresh
           </Button>
           <Button variant="outline" size="sm">
             <Star className="w-4 h-4 mr-2" />
@@ -182,7 +243,7 @@ export const CharacterGallery = () => {
       </div>
       
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {mockCharacters.map((character) => (
+        {characters.map((character) => (
           <Card key={character.id} className="glass-card transition-smooth hover:scale-105 overflow-hidden">
             <CardHeader className="p-0">
               <div className="relative">

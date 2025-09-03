@@ -8,6 +8,8 @@ import { Badge } from '@/components/ui/badge';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Progress } from '@/components/ui/progress';
+import { supabase } from '@/integrations/supabase/client';
+import { toast } from 'sonner';
 import { 
   Wand2, 
   Upload, 
@@ -27,6 +29,7 @@ import {
 export const CharacterCreator = () => {
   const [isGenerating, setIsGenerating] = useState(false);
   const [generationProgress, setGenerationProgress] = useState(0);
+  const [generatedImage, setGeneratedImage] = useState<string | null>(null);
   const [characterData, setCharacterData] = useState({
     name: '',
     role: '',
@@ -53,22 +56,58 @@ export const CharacterCreator = () => {
   const handleGenerateCharacter = async () => {
     setIsGenerating(true);
     setGenerationProgress(0);
+    setGeneratedImage(null);
 
-    // Simulate generation process
-    const steps = [
-      { step: 'Analyzing description...', progress: 20 },
-      { step: 'Generating visual assets...', progress: 40 },
-      { step: 'Creating voice profile...', progress: 60 },
-      { step: 'Processing personality matrix...', progress: 80 },
-      { step: 'Finalizing character...', progress: 100 }
-    ];
+    try {
+      // Get current user
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) {
+        toast.error('Please sign in to generate characters');
+        return;
+      }
 
-    for (const { step, progress } of steps) {
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      setGenerationProgress(progress);
+      // Progress simulation while generating
+      const progressInterval = setInterval(() => {
+        setGenerationProgress(prev => Math.min(prev + 10, 90));
+      }, 800);
+
+      toast.info('Generating your character...', {
+        description: 'This may take a few moments'
+      });
+
+      // Call the character generation function
+      const { data, error } = await supabase.functions.invoke('generate-character', {
+        body: {
+          characterData,
+          userId: user.id
+        }
+      });
+
+      clearInterval(progressInterval);
+      setGenerationProgress(100);
+
+      if (error) {
+        console.error('Generation error:', error);
+        throw new Error(error.message || 'Failed to generate character');
+      }
+
+      if (data.success) {
+        setGeneratedImage(data.imageUrl);
+        toast.success('Character generated successfully!', {
+          description: `${characterData.name} has been brought to life`
+        });
+      } else {
+        throw new Error(data.error || 'Generation failed');
+      }
+
+    } catch (error) {
+      console.error('Character generation error:', error);
+      toast.error('Failed to generate character', {
+        description: error.message || 'Please try again'
+      });
+    } finally {
+      setIsGenerating(false);
     }
-
-    setIsGenerating(false);
   };
 
   const togglePersonality = (trait: string) => {
@@ -291,12 +330,18 @@ export const CharacterCreator = () => {
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
-              <div className="aspect-[3/4] bg-muted rounded-lg flex items-center justify-center">
+              <div className="aspect-[3/4] bg-muted rounded-lg flex items-center justify-center overflow-hidden">
                 {isGenerating ? (
                   <div className="text-center space-y-2">
                     <Loader2 className="w-8 h-8 animate-spin mx-auto text-primary" />
                     <p className="text-sm text-muted-foreground">Generating...</p>
                   </div>
+                ) : generatedImage ? (
+                  <img 
+                    src={generatedImage} 
+                    alt={characterData.name || 'Generated Character'}
+                    className="w-full h-full object-cover rounded-lg"
+                  />
                 ) : (
                   <div className="text-center text-muted-foreground">
                     <Camera className="w-12 h-12 mx-auto mb-2" />

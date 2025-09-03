@@ -952,6 +952,95 @@ export type Database = {
           },
         ]
       }
+      character_assets: {
+        Row: {
+          asset_data: Json | null
+          asset_type: string
+          asset_url: string | null
+          character_id: string
+          created_at: string
+          generation_parameters: Json | null
+          id: string
+          quality_score: number | null
+        }
+        Insert: {
+          asset_data?: Json | null
+          asset_type: string
+          asset_url?: string | null
+          character_id: string
+          created_at?: string
+          generation_parameters?: Json | null
+          id?: string
+          quality_score?: number | null
+        }
+        Update: {
+          asset_data?: Json | null
+          asset_type?: string
+          asset_url?: string | null
+          character_id?: string
+          created_at?: string
+          generation_parameters?: Json | null
+          id?: string
+          quality_score?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "character_assets_character_id_fkey"
+            columns: ["character_id"]
+            isOneToOne: false
+            referencedRelation: "characters"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      characters: {
+        Row: {
+          age_range: string | null
+          created_at: string
+          description: string | null
+          ethnicity: string | null
+          gender: string | null
+          id: string
+          name: string
+          personality_traits: string[] | null
+          style: string | null
+          updated_at: string
+          user_id: string | null
+          visual_dna: Json | null
+          voice_type: string | null
+        }
+        Insert: {
+          age_range?: string | null
+          created_at?: string
+          description?: string | null
+          ethnicity?: string | null
+          gender?: string | null
+          id?: string
+          name: string
+          personality_traits?: string[] | null
+          style?: string | null
+          updated_at?: string
+          user_id?: string | null
+          visual_dna?: Json | null
+          voice_type?: string | null
+        }
+        Update: {
+          age_range?: string | null
+          created_at?: string
+          description?: string | null
+          ethnicity?: string | null
+          gender?: string | null
+          id?: string
+          name?: string
+          personality_traits?: string[] | null
+          style?: string | null
+          updated_at?: string
+          user_id?: string | null
+          visual_dna?: Json | null
+          voice_type?: string | null
+        }
+        Relationships: []
+      }
       chat_messages: {
         Row: {
           content: string
