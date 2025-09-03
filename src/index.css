@@ -2,39 +2,83 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+/* CASTING STUDIO DESIGN SYSTEM - CINEMATIC THEME
+Professional film industry aesthetic with sophisticated dark theme
 All colors MUST be HSL.
 */
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Core Cinematic Palette */
+    --background: 220 13% 9%;
+    --foreground: 210 40% 98%;
+    
+    /* Film Industry Gold & Amber */
+    --cinema-gold: 45 100% 65%;
+    --cinema-gold-muted: 45 60% 45%;
+    --cinema-amber: 35 100% 55%;
+    
+    /* Rich Purple & Blue Sophistication */
+    --royal-purple: 260 60% 45%;
+    --royal-purple-muted: 260 40% 25%;
+    --cinematic-blue: 220 70% 35%;
+    --cinematic-blue-dark: 220 60% 15%;
+    
+    /* Professional Grays */
+    --charcoal: 220 13% 18%;
+    --charcoal-light: 220 13% 25%;
+    --slate-muted: 220 13% 35%;
+    
+    /* Accent Colors */
+    --success-green: 142 76% 36%;
+    --warning-orange: 25 95% 53%;
+    --error-red: 0 84% 60%;
+    
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(var(--cinema-gold)), hsl(var(--cinema-amber)));
+    --gradient-royal: linear-gradient(135deg, hsl(var(--royal-purple)), hsl(var(--cinematic-blue)));
+    --gradient-dark: linear-gradient(180deg, hsl(var(--charcoal)), hsl(var(--background)));
+    --gradient-glass: linear-gradient(135deg, hsl(var(--charcoal) / 0.8), hsl(var(--charcoal-light) / 0.6));
+    
+    /* Shadows & Effects */
+    --shadow-cinematic: 0 20px 40px -10px hsl(var(--cinema-gold) / 0.3);
+    --shadow-royal: 0 15px 35px -10px hsl(var(--royal-purple) / 0.4);
+    --shadow-elegant: 0 10px 30px -5px hsl(var(--background) / 0.8);
+    --shadow-glass: 0 8px 32px 0 hsl(var(--background) / 0.37);
+    
+    /* Animations */
+    --transition-cinematic: all 0.4s cubic-bezier(0.23, 1, 0.320, 1);
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    
+    /* Glass Morphism */
+    --glass-bg: hsl(var(--charcoal) / 0.8);
+    --glass-border: hsl(var(--cinema-gold) / 0.2);
+    
+    /* Design System Tokens - Mapped to Cinematic Theme */
+    --card: var(--charcoal);
+    --card-foreground: var(--foreground);
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --popover: var(--charcoal-light);
+    --popover-foreground: var(--foreground);
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --primary: var(--cinema-gold);
+    --primary-foreground: var(--background);
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    --secondary: var(--charcoal-light);
+    --secondary-foreground: var(--foreground);
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --muted: var(--charcoal-light);
+    --muted-foreground: var(--slate-muted);
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: var(--royal-purple);
+    --accent-foreground: var(--foreground);
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --destructive: var(--error-red);
+    --destructive-foreground: var(--foreground);
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --border: var(--charcoal-light);
+    --input: var(--charcoal-light);
+    --ring: var(--cinema-gold);
 
     --radius: 0.5rem;
 
@@ -101,5 +145,41 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground;
+  }
+  
+  /* Cinematic UI Components */
+  .glass-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--shadow-glass);
+  }
+  
+  .cinematic-glow {
+    box-shadow: var(--shadow-cinematic);
+  }
+  
+  .royal-glow {
+    box-shadow: var(--shadow-royal);
+  }
+  
+  .gradient-primary {
+    background: var(--gradient-primary);
+  }
+  
+  .gradient-royal {
+    background: var(--gradient-royal);
+  }
+  
+  .gradient-dark {
+    background: var(--gradient-dark);
+  }
+  
+  .transition-cinematic {
+    transition: var(--transition-cinematic);
+  }
+  
+  .transition-smooth {
+    transition: var(--transition-smooth);
   }
 }
