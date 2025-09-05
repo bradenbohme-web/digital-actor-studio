@@ -19,7 +19,7 @@ import {
   Zap
 } from 'lucide-react';
 import { CharacterGallery } from '@/components/casting/CharacterGallery';
-import { CharacterCreator } from '@/components/casting/CharacterCreator';
+import { AdvancedCharacterCreator } from '@/components/casting/AdvancedCharacterCreator';
 import { CastingSheets } from '@/components/casting/CastingSheets';
 import { AnalyticsDashboard } from '@/components/casting/AnalyticsDashboard';
 
@@ -144,7 +144,7 @@ const Index = () => {
           </TabsContent>
 
           <TabsContent value="creator" className="space-y-6">
-            <CharacterCreator />
+            <AdvancedCharacterCreator />
           </TabsContent>
 
           <TabsContent value="casting" className="space-y-6">
