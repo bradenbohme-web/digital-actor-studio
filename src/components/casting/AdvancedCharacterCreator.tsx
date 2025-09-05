@@ -10,6 +10,9 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Progress } from '@/components/ui/progress';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
+import annaRef from '@/assets/characters/anna-reference.jpg';
+import businessmanRef from '@/assets/characters/businessman-reference.jpg';
+import studioWhite from '@/assets/backgrounds/studio-white.jpg';
 import { 
   Wand2, 
   Camera,
@@ -67,13 +70,30 @@ export const AdvancedCharacterCreator = () => {
     { id: 'back', name: 'Back View', icon: '⬇️' }
   ];
 
+  const mockCharacters = [
+    {
+      id: '1',
+      name: 'Anna',
+      outfit: 'Casual Street Style',
+      images: { front: annaRef, 'three-quarter-left': annaRef, back: annaRef },
+      emotions: { happy: annaRef, neutral: annaRef, confident: annaRef }
+    },
+    {
+      id: '2', 
+      name: 'Marcus',
+      outfit: 'Business Formal',
+      images: { front: businessmanRef, 'three-quarter-left': businessmanRef, back: businessmanRef },
+      emotions: { serious: businessmanRef, confident: businessmanRef, neutral: businessmanRef }
+    }
+  ];
+
   const backgrounds = [
-    { id: 'white-studio', name: 'White Studio', preview: '#ffffff' },
-    { id: 'photography-studio', name: 'Photography Studio', preview: '#f5f5f5' },
-    { id: 'gradient-studio', name: 'Gradient Studio', preview: 'linear-gradient(to bottom, #ffffff, #f0f0f0)' },
-    { id: 'dark-studio', name: 'Dark Studio', preview: '#2a2a2a' },
-    { id: 'colored-backdrop', name: 'Colored Backdrop', preview: '#e6f3ff' },
-    { id: 'natural-light', name: 'Natural Light', preview: '#f8f9fa' }
+    { id: 'white-studio', name: 'White Studio', preview: studioWhite },
+    { id: 'photography-studio', name: 'Photography Studio', preview: studioWhite },
+    { id: 'gradient-studio', name: 'Gradient Studio', preview: studioWhite },
+    { id: 'dark-studio', name: 'Dark Studio', preview: studioWhite },
+    { id: 'colored-backdrop', name: 'Colored Backdrop', preview: studioWhite },
+    { id: 'natural-light', name: 'Natural Light', preview: studioWhite }
   ];
 
   const outfits = [
@@ -411,10 +431,13 @@ export const AdvancedCharacterCreator = () => {
                       }`}
                       onClick={() => setSelectedBackground(bg.id)}
                     >
-                      <div 
-                        className="w-8 h-8 rounded mb-1 border"
-                        style={{ background: bg.preview }}
-                      />
+                      <div className="w-8 h-8 rounded mb-1 border overflow-hidden">
+                        <img 
+                          src={bg.preview} 
+                          alt={bg.name}
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
                       <div className="text-xs">{bg.name}</div>
                     </Button>
                   ))}
@@ -552,7 +575,102 @@ export const AdvancedCharacterCreator = () => {
             <CardHeader>
               <CardTitle className="flex items-center">
                 <ImageIcon className="w-5 h-5 mr-2" />
-                Generated Assets ({generatedAssets.length})
+                Example Characters
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                {mockCharacters.map((character) => (
+                  <div key={character.id} className="border rounded-lg p-4 space-y-4">
+                    <div className="flex items-center justify-between">
+                      <h3 className="font-semibold text-lg">{character.name}</h3>
+                      <Badge variant="outline">{character.outfit}</Badge>
+                    </div>
+                    
+                    <div className="space-y-3">
+                      <div>
+                        <h4 className="text-sm font-medium mb-2">Multi-Angle Views</h4>
+                        <div className="grid grid-cols-3 gap-2">
+                          <div className="space-y-1">
+                            <div className="aspect-[3/4] bg-muted rounded overflow-hidden">
+                              <img 
+                                src={character.images.front} 
+                                alt={`${character.name} front`}
+                                className="w-full h-full object-cover"
+                              />
+                            </div>
+                            <p className="text-xs text-center text-muted-foreground">Front</p>
+                          </div>
+                          <div className="space-y-1">
+                            <div className="aspect-[3/4] bg-muted rounded overflow-hidden">
+                              <img 
+                                src={character.images['three-quarter-left']} 
+                                alt={`${character.name} 3/4`}
+                                className="w-full h-full object-cover"
+                              />
+                            </div>
+                            <p className="text-xs text-center text-muted-foreground">3/4 View</p>
+                          </div>
+                          <div className="space-y-1">
+                            <div className="aspect-[3/4] bg-muted rounded overflow-hidden">
+                              <img 
+                                src={character.images.back} 
+                                alt={`${character.name} back`}
+                                className="w-full h-full object-cover"
+                              />
+                            </div>
+                            <p className="text-xs text-center text-muted-foreground">Back</p>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div>
+                        <h4 className="text-sm font-medium mb-2">Emotion Portraits</h4>
+                        <div className="grid grid-cols-3 gap-2">
+                          <div className="space-y-1">
+                            <div className="aspect-square bg-muted rounded overflow-hidden">
+                              <img 
+                                src={character.emotions.neutral} 
+                                alt={`${character.name} neutral`}
+                                className="w-full h-full object-cover"
+                              />
+                            </div>
+                            <p className="text-xs text-center text-muted-foreground">Neutral</p>
+                          </div>
+                          <div className="space-y-1">
+                            <div className="aspect-square bg-muted rounded overflow-hidden">
+                              <img 
+                                src={character.emotions.happy} 
+                                alt={`${character.name} happy`}
+                                className="w-full h-full object-cover"
+                              />
+                            </div>
+                            <p className="text-xs text-center text-muted-foreground">Happy</p>
+                          </div>
+                          <div className="space-y-1">
+                            <div className="aspect-square bg-muted rounded overflow-hidden">
+                              <img 
+                                src={character.emotions.confident} 
+                                alt={`${character.name} confident`}
+                                className="w-full h-full object-cover"
+                              />
+                            </div>
+                            <p className="text-xs text-center text-muted-foreground">Confident</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card className="glass-card">
+            <CardHeader>
+              <CardTitle className="flex items-center">
+                <ImageIcon className="w-5 h-5 mr-2" />
+                Your Generated Assets ({generatedAssets.length})
               </CardTitle>
             </CardHeader>
             <CardContent>
@@ -560,6 +678,7 @@ export const AdvancedCharacterCreator = () => {
                 <div className="text-center py-8 text-muted-foreground">
                   <ImageIcon className="w-12 h-12 mx-auto mb-4 opacity-50" />
                   <p>No assets generated yet. Go to Generation tab to create character assets.</p>
+                  <p className="text-sm mt-2">Your generated characters will appear below the example characters above.</p>
                 </div>
               ) : (
                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
