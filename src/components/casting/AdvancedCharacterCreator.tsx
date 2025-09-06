@@ -13,6 +13,20 @@ import { toast } from 'sonner';
 import annaRef from '@/assets/characters/anna-reference.jpg';
 import businessmanRef from '@/assets/characters/businessman-reference.jpg';
 import studioWhite from '@/assets/backgrounds/studio-white.jpg';
+
+// Import pose reference images
+import annaFront from '@/assets/poses/anna-front.jpg';
+import anna34Left from '@/assets/poses/anna-34-left.jpg';
+import anna34Right from '@/assets/poses/anna-34-right.jpg';
+import annaLeft from '@/assets/poses/anna-left.jpg';
+import annaRight from '@/assets/poses/anna-right.jpg';
+import annaBack from '@/assets/poses/anna-back.jpg';
+
+// Import background images
+import studioProfessional from '@/assets/backgrounds/studio-professional.jpg';
+
+// Import emotion images
+import annaHappy from '@/assets/emotions/anna-happy.jpg';
 import { 
   Wand2, 
   Camera,
@@ -62,12 +76,12 @@ export const AdvancedCharacterCreator = () => {
   });
 
   const angles = [
-    { id: 'front', name: 'Front View', icon: '⬆️' },
-    { id: '3quarter-left', name: '3/4 Left', icon: '↖️' },
-    { id: 'left', name: 'Left Profile', icon: '⬅️' },
-    { id: '3quarter-right', name: '3/4 Right', icon: '↗️' },
-    { id: 'right', name: 'Right Profile', icon: '➡️' },
-    { id: 'back', name: 'Back View', icon: '⬇️' }
+    { id: 'front', name: 'Front View', icon: '⬆️', image: annaFront },
+    { id: '3quarter-left', name: '3/4 Left', icon: '↖️', image: anna34Left },
+    { id: 'left', name: 'Left Profile', icon: '⬅️', image: annaLeft },
+    { id: '3quarter-right', name: '3/4 Right', icon: '↗️', image: anna34Right },
+    { id: 'right', name: 'Right Profile', icon: '➡️', image: annaRight },
+    { id: 'back', name: 'Back View', icon: '⬇️', image: annaBack }
   ];
 
   const mockCharacters = [
@@ -89,7 +103,7 @@ export const AdvancedCharacterCreator = () => {
 
   const backgrounds = [
     { id: 'white-studio', name: 'White Studio', preview: studioWhite },
-    { id: 'photography-studio', name: 'Photography Studio', preview: studioWhite },
+    { id: 'photography-studio', name: 'Photography Studio', preview: studioProfessional },
     { id: 'gradient-studio', name: 'Gradient Studio', preview: studioWhite },
     { id: 'dark-studio', name: 'Dark Studio', preview: studioWhite },
     { id: 'colored-backdrop', name: 'Colored Backdrop', preview: studioWhite },
@@ -108,7 +122,7 @@ export const AdvancedCharacterCreator = () => {
 
   const emotions = [
     { id: 'neutral', name: 'Neutral', emoji: '😐' },
-    { id: 'happy', name: 'Happy', emoji: '😊' },
+    { id: 'happy', name: 'Happy', emoji: '😊', image: annaHappy },
     { id: 'serious', name: 'Serious', emoji: '😤' },
     { id: 'confident', name: 'Confident', emoji: '😎' },
     { id: 'thoughtful', name: 'Thoughtful', emoji: '🤔' },
@@ -398,13 +412,25 @@ export const AdvancedCharacterCreator = () => {
                     <Button
                       key={angle.id}
                       variant={selectedAngle === angle.id ? "default" : "outline"}
-                      className={`flex items-center justify-center p-3 h-auto ${
+                      className={`flex flex-col items-center justify-center p-3 h-auto ${
                         selectedAngle === angle.id ? 'gradient-primary' : ''
                       }`}
                       onClick={() => setSelectedAngle(angle.id)}
                     >
                       <div className="text-center">
-                        <div className="text-lg mb-1">{angle.icon}</div>
+                        <div className="w-12 h-12 rounded mb-1 border overflow-hidden bg-muted">
+                          {angle.image ? (
+                            <img 
+                              src={angle.image} 
+                              alt={angle.name}
+                              className="w-full h-full object-cover"
+                            />
+                          ) : (
+                            <div className="flex items-center justify-center h-full text-lg">
+                              {angle.icon}
+                            </div>
+                          )}
+                        </div>
                         <div className="text-xs">{angle.name}</div>
                       </div>
                     </Button>
@@ -486,7 +512,19 @@ export const AdvancedCharacterCreator = () => {
                       }`}
                       onClick={() => setSelectedEmotion(emotion.id)}
                     >
-                      <span className="mr-2">{emotion.emoji}</span>
+                      <div className="w-8 h-8 rounded mr-2 border overflow-hidden bg-muted flex-shrink-0">
+                        {emotion.image ? (
+                          <img 
+                            src={emotion.image} 
+                            alt={emotion.name}
+                            className="w-full h-full object-cover"
+                          />
+                        ) : (
+                          <div className="flex items-center justify-center h-full text-sm">
+                            {emotion.emoji}
+                          </div>
+                        )}
+                      </div>
                       <span className="text-xs">{emotion.name}</span>
                     </Button>
                   ))}
