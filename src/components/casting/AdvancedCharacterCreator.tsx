@@ -24,9 +24,26 @@ import annaBack from '@/assets/poses/anna-back.jpg';
 
 // Import background images
 import studioProfessional from '@/assets/backgrounds/studio-professional.jpg';
+import studioGradientBlue from '@/assets/backgrounds/studio-gradient-blue.jpg';
+import studioDark from '@/assets/backgrounds/studio-dark.jpg';
+import studioOrange from '@/assets/backgrounds/studio-orange.jpg';
 
 // Import emotion images
 import annaHappy from '@/assets/emotions/anna-happy.jpg';
+import annaConfident from '@/assets/emotions/anna-confident.jpg';
+import annaSad from '@/assets/emotions/anna-sad.jpg';
+import annaAngry from '@/assets/emotions/anna-angry.jpg';
+import annaSurprised from '@/assets/emotions/anna-surprised.jpg';
+
+// Import outfit images
+import annaBusinessFormal from '@/assets/outfits/anna-business-formal.jpg';
+import annaFantasy from '@/assets/outfits/anna-fantasy.jpg';
+import annaHistorical from '@/assets/outfits/anna-historical.jpg';
+
+// Import additional characters
+import elenaVasquez from '@/assets/characters/elena-vasquez.jpg';
+import davidRodriguez from '@/assets/characters/david-rodriguez.jpg';
+import sarahChen from '@/assets/characters/sarah-chen.jpg';
 import { 
   Wand2, 
   Camera,
@@ -89,8 +106,8 @@ export const AdvancedCharacterCreator = () => {
       id: '1',
       name: 'Anna',
       outfit: 'Casual Street Style',
-      images: { front: annaRef, 'three-quarter-left': annaRef, back: annaRef },
-      emotions: { happy: annaRef, neutral: annaRef, confident: annaRef }
+      images: { front: annaFront, 'three-quarter-left': anna34Left, back: annaBack },
+      emotions: { happy: annaHappy, neutral: annaRef, confident: annaConfident }
     },
     {
       id: '2', 
@@ -98,37 +115,58 @@ export const AdvancedCharacterCreator = () => {
       outfit: 'Business Formal',
       images: { front: businessmanRef, 'three-quarter-left': businessmanRef, back: businessmanRef },
       emotions: { serious: businessmanRef, confident: businessmanRef, neutral: businessmanRef }
+    },
+    {
+      id: '3',
+      name: 'Elena',
+      outfit: 'Professional Executive',
+      images: { front: elenaVasquez, 'three-quarter-left': elenaVasquez, back: elenaVasquez },
+      emotions: { confident: elenaVasquez, neutral: elenaVasquez, determined: elenaVasquez }
+    },
+    {
+      id: '4',
+      name: 'David',
+      outfit: 'Smart Casual',
+      images: { front: davidRodriguez, 'three-quarter-left': davidRodriguez, back: davidRodriguez },
+      emotions: { friendly: davidRodriguez, confident: davidRodriguez, neutral: davidRodriguez }
+    },
+    {
+      id: '5',
+      name: 'Sarah',
+      outfit: 'Modern Professional',
+      images: { front: sarahChen, 'three-quarter-left': sarahChen, back: sarahChen },
+      emotions: { happy: sarahChen, confident: sarahChen, neutral: sarahChen }
     }
   ];
 
   const backgrounds = [
     { id: 'white-studio', name: 'White Studio', preview: studioWhite },
     { id: 'photography-studio', name: 'Photography Studio', preview: studioProfessional },
-    { id: 'gradient-studio', name: 'Gradient Studio', preview: studioWhite },
-    { id: 'dark-studio', name: 'Dark Studio', preview: studioWhite },
-    { id: 'colored-backdrop', name: 'Colored Backdrop', preview: studioWhite },
-    { id: 'natural-light', name: 'Natural Light', preview: studioWhite }
+    { id: 'gradient-studio', name: 'Gradient Studio', preview: studioGradientBlue },
+    { id: 'dark-studio', name: 'Dark Studio', preview: studioDark },
+    { id: 'colored-backdrop', name: 'Colored Backdrop', preview: studioOrange },
+    { id: 'natural-light', name: 'Natural Light', preview: studioProfessional }
   ];
 
   const outfits = [
-    { id: 'default', name: 'Default Outfit' },
-    { id: 'formal', name: 'Formal Wear' },
-    { id: 'casual', name: 'Casual Wear' },
-    { id: 'business', name: 'Business Attire' },
-    { id: 'fantasy', name: 'Fantasy Costume' },
-    { id: 'historical', name: 'Historical Clothing' },
-    { id: 'modern', name: 'Modern Fashion' }
+    { id: 'default', name: 'Default Outfit', preview: annaRef },
+    { id: 'formal', name: 'Formal Wear', preview: annaBusinessFormal },
+    { id: 'casual', name: 'Casual Wear', preview: annaRef },
+    { id: 'business', name: 'Business Attire', preview: annaBusinessFormal },
+    { id: 'fantasy', name: 'Fantasy Costume', preview: annaFantasy },
+    { id: 'historical', name: 'Historical Clothing', preview: annaHistorical },
+    { id: 'modern', name: 'Modern Fashion', preview: annaRef }
   ];
 
   const emotions = [
-    { id: 'neutral', name: 'Neutral', emoji: '😐' },
+    { id: 'neutral', name: 'Neutral', emoji: '😐', image: annaRef },
     { id: 'happy', name: 'Happy', emoji: '😊', image: annaHappy },
-    { id: 'serious', name: 'Serious', emoji: '😤' },
-    { id: 'confident', name: 'Confident', emoji: '😎' },
-    { id: 'thoughtful', name: 'Thoughtful', emoji: '🤔' },
-    { id: 'determined', name: 'Determined', emoji: '😤' },
-    { id: 'friendly', name: 'Friendly', emoji: '😄' },
-    { id: 'mysterious', name: 'Mysterious', emoji: '😏' }
+    { id: 'serious', name: 'Serious', emoji: '😤', image: annaConfident },
+    { id: 'confident', name: 'Confident', emoji: '😎', image: annaConfident },
+    { id: 'sad', name: 'Sad', emoji: '😢', image: annaSad },
+    { id: 'angry', name: 'Angry', emoji: '😠', image: annaAngry },
+    { id: 'surprised', name: 'Surprised', emoji: '😮', image: annaSurprised },
+    { id: 'thoughtful', name: 'Thoughtful', emoji: '🤔', image: annaRef }
   ];
 
   const poses = [
@@ -479,18 +517,27 @@ export const AdvancedCharacterCreator = () => {
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <Select value={selectedOutfit} onValueChange={setSelectedOutfit}>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select outfit" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {outfits.map((outfit) => (
-                      <SelectItem key={outfit.id} value={outfit.id}>
-                        {outfit.name}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
+                <div className="grid grid-cols-2 gap-2">
+                  {outfits.map((outfit) => (
+                    <Button
+                      key={outfit.id}
+                      variant={selectedOutfit === outfit.id ? "default" : "outline"}
+                      className={`flex flex-col items-center p-3 h-auto ${
+                        selectedOutfit === outfit.id ? 'gradient-primary' : ''
+                      }`}
+                      onClick={() => setSelectedOutfit(outfit.id)}
+                    >
+                      <div className="w-8 h-8 rounded mb-1 border overflow-hidden">
+                        <img 
+                          src={outfit.preview} 
+                          alt={outfit.name}
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                      <div className="text-xs text-center">{outfit.name}</div>
+                    </Button>
+                  ))}
+                </div>
               </CardContent>
             </Card>
 
