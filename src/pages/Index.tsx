@@ -22,6 +22,9 @@ import { CharacterGallery } from '@/components/casting/CharacterGallery';
 import { AdvancedCharacterCreator } from '@/components/casting/AdvancedCharacterCreator';
 import { CastingSheets } from '@/components/casting/CastingSheets';
 import { AnalyticsDashboard } from '@/components/casting/AnalyticsDashboard';
+import { CharacterMarketplace } from '@/components/casting/CharacterMarketplace';
+import { AICharacterAssistant } from '@/components/casting/AICharacterAssistant';
+import { NFTLockingSystem } from '@/components/casting/NFTLockingSystem';
 
 const Index = () => {
   const [activeTab, setActiveTab] = useState('gallery');
@@ -120,22 +123,34 @@ const Index = () => {
 
         {/* Main Content Tabs */}
         <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-          <TabsList className="grid w-full grid-cols-4 glass-card">
-            <TabsTrigger value="gallery" className="flex items-center space-x-2">
-              <Users className="w-4 h-4" />
-              <span>Character Gallery</span>
+          <TabsList className="grid w-full grid-cols-7 glass-card">
+            <TabsTrigger value="gallery" className="flex items-center space-x-1">
+              <Users className="w-3 h-3" />
+              <span className="hidden sm:inline">Gallery</span>
             </TabsTrigger>
-            <TabsTrigger value="creator" className="flex items-center space-x-2">
-              <Plus className="w-4 h-4" />
-              <span>Create Character</span>
+            <TabsTrigger value="marketplace" className="flex items-center space-x-1">
+              <Star className="w-3 h-3" />
+              <span className="hidden sm:inline">Marketplace</span>
             </TabsTrigger>
-            <TabsTrigger value="casting" className="flex items-center space-x-2">
-              <Calendar className="w-4 h-4" />
-              <span>Casting Sheets</span>
+            <TabsTrigger value="ai-assistant" className="flex items-center space-x-1">
+              <Zap className="w-3 h-3" />
+              <span className="hidden sm:inline">AI Assistant</span>
             </TabsTrigger>
-            <TabsTrigger value="analytics" className="flex items-center space-x-2">
-              <BarChart3 className="w-4 h-4" />
-              <span>Analytics</span>
+            <TabsTrigger value="creator" className="flex items-center space-x-1">
+              <Plus className="w-3 h-3" />
+              <span className="hidden sm:inline">Creator</span>
+            </TabsTrigger>
+            <TabsTrigger value="nft-system" className="flex items-center space-x-1">
+              <Filter className="w-3 h-3" />
+              <span className="hidden sm:inline">NFT System</span>
+            </TabsTrigger>
+            <TabsTrigger value="casting" className="flex items-center space-x-1">
+              <Calendar className="w-3 h-3" />
+              <span className="hidden sm:inline">Casting</span>
+            </TabsTrigger>
+            <TabsTrigger value="analytics" className="flex items-center space-x-1">
+              <BarChart3 className="w-3 h-3" />
+              <span className="hidden sm:inline">Analytics</span>
             </TabsTrigger>
           </TabsList>
 
@@ -143,8 +158,20 @@ const Index = () => {
             <CharacterGallery />
           </TabsContent>
 
+          <TabsContent value="marketplace" className="space-y-6">
+            <CharacterMarketplace />
+          </TabsContent>
+
+          <TabsContent value="ai-assistant" className="space-y-6">
+            <AICharacterAssistant />
+          </TabsContent>
+
           <TabsContent value="creator" className="space-y-6">
             <AdvancedCharacterCreator />
+          </TabsContent>
+
+          <TabsContent value="nft-system" className="space-y-6">
+            <NFTLockingSystem />
           </TabsContent>
 
           <TabsContent value="casting" className="space-y-6">
