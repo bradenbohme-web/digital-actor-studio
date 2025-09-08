@@ -27,6 +27,7 @@ import studioProfessional from '@/assets/backgrounds/studio-professional.jpg';
 import studioGradientBlue from '@/assets/backgrounds/studio-gradient-blue.jpg';
 import studioDark from '@/assets/backgrounds/studio-dark.jpg';
 import studioOrange from '@/assets/backgrounds/studio-orange.jpg';
+import studioGreenScreen from '@/assets/backgrounds/studio-green-screen.jpg';
 
 // Import emotion images
 import annaHappy from '@/assets/emotions/anna-happy.jpg';
@@ -145,6 +146,7 @@ export const AdvancedCharacterCreator = () => {
     { id: 'gradient-studio', name: 'Gradient Studio', preview: studioGradientBlue },
     { id: 'dark-studio', name: 'Dark Studio', preview: studioDark },
     { id: 'colored-backdrop', name: 'Colored Backdrop', preview: studioOrange },
+    { id: 'green-screen', name: 'Green Screen', preview: studioGreenScreen },
     { id: 'natural-light', name: 'Natural Light', preview: studioProfessional }
   ];
 
