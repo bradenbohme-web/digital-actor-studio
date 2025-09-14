@@ -3,7 +3,6 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar';
 import { 
   Users, 
   Plus, 
@@ -27,7 +26,7 @@ import { AnalyticsDashboard } from '@/components/casting/AnalyticsDashboard';
 import { CharacterMarketplace } from '@/components/casting/CharacterMarketplace';
 import { AICharacterAssistant } from '@/components/casting/AICharacterAssistant';
 import { NFTLockingSystem } from '@/components/casting/NFTLockingSystem';
-import { CharactersSidebar } from '@/components/sidebar/CharactersSidebar';
+import { VerticalToolbar } from '@/components/sidebar/VerticalToolbar';
 import { CharacterLibraryGrid } from '@/components/characters/CharacterLibraryGrid';
 
 const Index = () => {
@@ -103,20 +102,18 @@ const Index = () => {
   };
 
   return (
-    <SidebarProvider defaultOpen>
-      <div className="min-h-screen flex w-full bg-background">
-        <CharactersSidebar onAction={handleSidebarAction} />
-        
-        <div className="flex-1 flex flex-col">
-          {/* Header */}
-          <div className="border-b border-border gradient-dark sticky top-0 z-10 bg-background/95 backdrop-blur-sm">
-            <div className="container mx-auto px-4 py-4">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center space-x-4">
-                  <SidebarTrigger className="lg:hidden" />
-                  <div className="w-10 h-10 rounded-xl gradient-primary flex items-center justify-center cinematic-glow">
-                    <Camera className="w-5 h-5 text-primary-foreground" />
-                  </div>
+    <div className="min-h-screen flex w-full bg-background">
+      <VerticalToolbar onAction={handleSidebarAction} />
+      
+      <div className="flex-1 flex flex-col">
+        {/* Header */}
+        <div className="border-b border-border gradient-dark sticky top-0 z-10 bg-background/95 backdrop-blur-sm">
+          <div className="container mx-auto px-4 py-4">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center space-x-4">
+                <div className="w-10 h-10 rounded-xl gradient-primary flex items-center justify-center cinematic-glow">
+                  <Camera className="w-5 h-5 text-primary-foreground" />
+                </div>
                   <div>
                     <h1 className="text-2xl lg:text-3xl font-bold bg-gradient-to-r from-primary to-amber-400 bg-clip-text text-transparent">
                       LUCID Characters Studio
@@ -264,9 +261,8 @@ const Index = () => {
               </TabsContent>
             </Tabs>
           </div>
-        </div>
       </div>
-    </SidebarProvider>
+    </div>
   );
 };
 
