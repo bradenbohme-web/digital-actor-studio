@@ -23,34 +23,41 @@ import { CharacterGallery } from '@/components/casting/CharacterGallery';
 import { AdvancedCharacterCreator } from '@/components/casting/AdvancedCharacterCreator';
 import { CastingSheets } from '@/components/casting/CastingSheets';
 import { AnalyticsDashboard } from '@/components/casting/AnalyticsDashboard';
-import { CharacterMarketplace } from '@/components/casting/CharacterMarketplace';
+import { CharacterMarketplace as MarketplaceComponent } from '@/components/casting/CharacterMarketplace';
 import { AICharacterAssistant } from '@/components/casting/AICharacterAssistant';
 import { NFTLockingSystem } from '@/components/casting/NFTLockingSystem';
 import { VerticalToolbar } from '@/components/sidebar/VerticalToolbar';
 import { CharacterLibraryGrid } from '@/components/characters/CharacterLibraryGrid';
+import { CharacterCreator } from './CharacterCreator';
+import { CastingStudio } from './CastingStudio';
+import { CharacterMarketplace } from './CharacterMarketplace';
+import { DigitalSoul } from './DigitalSoul';
 
 const Index = () => {
   const [activeTab, setActiveTab] = useState('gallery');
 
   const handleSidebarAction = (action: string) => {
     console.log('Sidebar action:', action);
-    // Handle sidebar actions here
-    switch (action) {
-      case 'ai-generator':
-        setActiveTab('ai-assistant');
-        break;
-      case 'browse':
-        setActiveTab('marketplace');
-        break;
-      case 'nft':
-        setActiveTab('nft-system');
-        break;
-      case 'analytics':
-        setActiveTab('analytics');
-        break;
-      default:
-        // Default to gallery for most actions
-        setActiveTab('gallery');
+    
+    // Character Creation actions
+    if (action === 'ai-generator') {
+      setActiveTab('ai-character-creator');
+    }
+    // Casting Studio actions
+    else if (['casting-db', 'matching', 'performance', 'voice-cloning', 'actors', 'suggestions'].includes(action)) {
+      setActiveTab('casting-studio');
+    }
+    // Marketplace actions
+    else if (['browse', 'ratings', 'nft', 'reviews', 'analytics'].includes(action)) {
+      setActiveTab('marketplace-page');
+    }
+    // Digital Soul actions
+    else if (['psychology', 'behavior', 'emotions', 'relationships', 'arcs', 'growth'].includes(action)) {
+      setActiveTab('digital-soul');
+    }
+    // Default
+    else {
+      setActiveTab('gallery');
     }
   };
 
@@ -237,7 +244,7 @@ const Index = () => {
               </TabsContent>
 
               <TabsContent value="marketplace" className="space-y-6">
-                <CharacterMarketplace />
+                <MarketplaceComponent />
               </TabsContent>
 
               <TabsContent value="ai-assistant" className="space-y-6">
@@ -258,6 +265,23 @@ const Index = () => {
 
               <TabsContent value="analytics" className="space-y-6">
                 <AnalyticsDashboard />
+              </TabsContent>
+
+              {/* New pages from toolbar */}
+              <TabsContent value="ai-character-creator" className="space-y-6">
+                <CharacterCreator />
+              </TabsContent>
+
+              <TabsContent value="casting-studio" className="space-y-6">
+                <CastingStudio />
+              </TabsContent>
+
+              <TabsContent value="marketplace-page" className="space-y-6">
+                <CharacterMarketplace />
+              </TabsContent>
+
+              <TabsContent value="digital-soul" className="space-y-6">
+                <DigitalSoul />
               </TabsContent>
             </Tabs>
           </div>
